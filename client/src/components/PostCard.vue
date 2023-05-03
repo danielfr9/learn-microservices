@@ -17,7 +17,7 @@ const allComments = ref(props.post.comments);
 const handleSubmit = async () => {
   if (newComment.value === "") return;
   const res = await axios.post(
-    `http://localhost:4001/posts/${props.post.id}/comments`,
+    `http://posts.com/posts/${props.post.id}/comments`,
     {
       content: newComment.value,
     }
@@ -30,7 +30,7 @@ const handleSubmit = async () => {
 <template>
   <div class="bg-gray-700 text-white rounded-lg p-4 flex flex-col">
     <span class="text-lg font-semibold">{{ post.title }}</span>
-    <small>{{ allComments.length }} Comments</small>
+    <small>{{ allComments?.length }} Comments</small>
     <ul class="list-inside list-disc mt-3 grow">
       <template v-for="comment in allComments" :key="comment.id">
         <li class="italic" v-if="comment.status === 'rejected'">

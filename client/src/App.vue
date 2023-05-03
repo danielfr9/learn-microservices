@@ -7,13 +7,13 @@ const postTitle = ref("");
 const posts = ref({});
 
 onMounted(async () => {
-  const res = await axios.get("http://localhost:4002/posts");
+  const res = await axios.get("http://posts.com/posts");
   posts.value = res.data;
 });
 
 const handleSubmit = async () => {
   if (postTitle.value === "") return;
-  const res = await axios.post("http://localhost:4000/posts", {
+  const res = await axios.post("http://posts.com/posts/create", {
     title: postTitle.value,
   });
   posts.value[res.data.id] = { ...res.data, comments: [] };
@@ -42,7 +42,7 @@ const handleSubmit = async () => {
       </button>
     </form>
     <div class="w-full mt-4 flex flex-col grow">
-      <div class="grid grid-cols-3 gap-3">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
         <PostCard
           :post="post"
           v-for="post in Object.values(posts)"
