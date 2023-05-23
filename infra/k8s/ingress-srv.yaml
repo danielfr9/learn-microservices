@@ -3,41 +3,17 @@ kind: Ingress
 metadata:
   name: ingress-srv
   annotations:
-    # use the shared ingress-nginx
     kubernetes.io/ingress.class: "nginx"
     nginx.ingress.kubernetes.io/use-regex: "true"
-    # nginx.ingress.kubernetes.io/rewrite-target: /$1
-    nginx.ingress.kubernetes.io/service-upstream: "true"
 spec:
   rules:
-    - host: posts.com
+    - host: ticketing.dev
       http:
         paths:
           - pathType: Prefix
-            path: "/posts/create"
+            path: "/api/users/?(.*)"
             backend:
               service:
-                name: posts-clusterip-srv
+                name: auth-srv
                 port:
-                  number: 4000
-          - pathType: Prefix
-            path: "/posts"
-            backend:
-              service:
-                name: query-srv
-                port:
-                  number: 4002
-          - pathType: Prefix
-            path: "/posts/?(.*)/comments"
-            backend:
-              service:
-                name: comments-srv
-                port:
-                  number: 4001
-          - pathType: Prefix
-            path: "/?(.*)"
-            backend:
-              service:
-                name: client-srv
-                port:
-                  number: 5173
+                  number: 3000
